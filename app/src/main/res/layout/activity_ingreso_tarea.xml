@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/note"
+    tools:context=".IngresoTarea">
+
+    <EditText
+        android:id="@+id/etxtdescri"
+        android:layout_width="275dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="72dp"
+        android:background="@android:color/darker_gray"
+        android:gravity="top"
+        android:inputType="text|textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxtFecha" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="253dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginRight="120dp"
+        android:text="Descripción:"
+        android:textColor="#0C0C0C"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxtFecha" />
+
+    <EditText
+        android:id="@+id/etxtFecha"
+        android:layout_width="275dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="68dp"
+        android:background="@android:color/darker_gray"
+        android:ems="10"
+        android:hint="dd/MM/yyyy"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxtTnomb" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="253dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginRight="150dp"
+        android:text="Fecha de Entrega:"
+        android:textColor="#0E0E0E"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxtTnomb" />
+
+    <EditText
+        android:id="@+id/etxtTnomb"
+        android:layout_width="275dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@android:color/darker_gray"
+        android:ems="10"
+        android:hint="Identificador"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Añadir Imagen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxtdescri" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

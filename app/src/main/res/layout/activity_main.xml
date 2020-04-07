@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/note"
+    tools:context=".MainActivity" >
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="187dp"
+        android:layout_height="162dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/login" />
+
+    <EditText
+        android:id="@+id/etxtuser"
+        android:layout_width="319dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="48dp"
+        android:background="@android:color/holo_green_light"
+        android:ems="10"
+        android:hint="Usuario"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+    <EditText
+        android:id="@+id/etxtpass"
+        android:layout_width="319dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="44dp"
+        android:background="@android:color/holo_green_dark"
+        android:ems="10"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxtuser" />
+
+    <Button
+        android:id="@+id/btningre"
+        style="@style/Base.TextAppearance.AppCompat.Button"
+        android:layout_width="319dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="12dp"
+        android:drawableBottom="@android:color/holo_blue_bright"
+        android:shadowColor="#4C6F24"
+        android:text="INGRESAR"
+        android:textColor="#628638"
+        app:layout_constraintBottom_toTopOf="@+id/btnregis"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.552"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etxtpass" />
+
+    <Button
+        android:id="@+id/btnregis"
+        android:layout_width="319dp"
+        android:layout_height="51dp"
+        android:layout_marginBottom="48dp"
+        android:text="REGISTRAR"
+        android:textColor="#E60E3A"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.552"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
