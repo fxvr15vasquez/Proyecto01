@@ -9,11 +9,11 @@
             android:icon="@drawable/home"
             android:title="inicio" />
         <item
-            android:id="menuMateria"
+            android:id="@+id/nav_gallery"
             android:icon="@drawable/books"
             android:title="Materias" />
         <item
-            android:id="menuHorario"
+            android:id="@+id/nav_slideshow"
             android:icon="@drawable/calen"
             android:title="Horario" />
     </group>
