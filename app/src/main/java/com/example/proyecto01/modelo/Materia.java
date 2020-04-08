@@ -7,7 +7,7 @@ public class Materia {
     private String mat_descrip;
     private String mat_profesor;
     private int est_id;
-
+//pruebas
     public Materia(int mat_id, String mat_nombre, String mat_nivel, String mat_descrip, String mat_profesor, int est_id) {
         this.mat_id = mat_id;
         this.mat_nombre = mat_nombre;

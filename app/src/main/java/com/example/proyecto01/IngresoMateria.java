@@ -24,7 +24,7 @@ public class IngresoMateria extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingreso_materia);
 
-        //Casting de elementos>
+        //Casting de los componenetes pru
         txtNomMat=(EditText)findViewById(R.id.etxtMnomb);
         txtDes=(EditText)findViewById(R.id.edtTxtDes);
         spnNiv=(Spinner)findViewById(R.id.spnNiv);

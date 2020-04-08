@@ -31,7 +31,7 @@ public class materiaDB extends SQLiteOpenHelper {
             }
         }
     }
-
+//verpru
     private boolean verificaBase(String ruta){
         SQLiteDatabase miBase=null;
         try {
