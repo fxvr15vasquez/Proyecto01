@@ -130,6 +130,21 @@ public class usuarioDB extends SQLiteOpenHelper {
         return max + 1;
     }
 
+    //login
+    public int login(String u, String p){
+        int acep=0;
+        Cursor cr;
+        String SQLC="select usu_id from Usuario where usu_nomb = '" + u + " AND usu_cont = '"+ p +"'" ;
+        cr= this.getReadableDatabase().rawQuery(SQLC,null);
+        if(cr != null && cr.moveToFirst()){
+            acep = cr.getInt(0);
+        }else{
+            acep = 0;
+        }
+        return acep;
+    }
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
 
