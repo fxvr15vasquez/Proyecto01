@@ -9,26 +9,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.proyecto01.modelo.DAOEstudiante;
-import com.example.proyecto01.modelo.DAOPersona;
-import com.example.proyecto01.modelo.DAOUsuario;
 import com.example.proyecto01.modelo.Estudiante;
 import com.example.proyecto01.modelo.Persona;
 import com.example.proyecto01.modelo.Usuario;
+import com.example.proyecto01.modeloDB.estudianteDB;
+import com.example.proyecto01.modeloDB.personaDB;
+import com.example.proyecto01.modeloDB.usuarioDB;
 
 public class Registro extends AppCompatActivity implements View.OnClickListener{
     EditText nomb, apell, correo, telef, user, pass, pass2;
-    Button btnguar, btncanc , btningre, btnregis;
-    DAOUsuario daoUsuario;
-    DAOPersona daoPersona;
-    DAOEstudiante daoEstudiante;
+    Button btnguar, btncanc;
+
+    personaDB perDB;
+    usuarioDB usuDB;
+    estudianteDB estDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
-        daoUsuario = new DAOUsuario(getApplicationContext());
-        daoPersona = new DAOPersona(getApplicationContext());
-        daoEstudiante = new DAOEstudiante(getApplicationContext());
+        usuDB = new usuarioDB(getApplicationContext());
+        perDB = new personaDB(getApplicationContext());
+        estDB = new estudianteDB(getApplicationContext());
 
         nomb=(EditText) findViewById(R.id.etxtRnomb);
         apell=(EditText) findViewById(R.id.etxtRapell);
@@ -50,31 +51,31 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
             case R.id.btnRguard:
                 if (pass.getText().toString().equals(pass2.getText().toString())){
                     Persona pe = new Persona();
-                    pe.setPer_id(daoUsuario.maxUser());
+                    pe.setPer_id(perDB.maxPers());
                     pe.setPer_nombre(nomb.getText().toString());
                     pe.setPer_apellido(apell.getText().toString());
                     pe.setPer_corr_elec(correo.getText().toString());
                     pe.setPer_celular(telef.getText().toString());
 
                     Usuario us = new Usuario();
-                    us.setUsu_id(daoUsuario.maxUser());
+                    us.setUsu_id(usuDB.maxUser());
                     us.setUsu_nomb(user.getText().toString());
                     us.setUsu_pass(pass.getText().toString());
                     us.setPer_id(pe.getPer_id());
 
                     Estudiante est = new Estudiante();
-                    est.setEst_id(daoEstudiante.maxEst());
+                    est.setEst_id(estDB.maxEst());
                     est.setUsu_id(us.getUsu_id());
 
                     if (!us.isNull()){
                         Toast.makeText(this,"Error:  campos bacios",Toast.LENGTH_SHORT).show();
-                    }else if(daoPersona.insertPers(pe) && daoUsuario.insertUser(us) && daoEstudiante.insertEst(est)){
+                    }else if(perDB.insertPers(pe) && usuDB.insertUser(us) && estDB.insertEst(est)){
                         Toast.makeText(this,"Usuario ingresado",Toast.LENGTH_SHORT).show();
                         Intent inlogin2 = new Intent(Registro.this,MainActivity.class);
                         startActivity(inlogin2);
                         finish();
                     }else{
-                        Toast.makeText(this,"Usuario ya existe",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this,"Usuario no ingresado",Toast.LENGTH_SHORT).show();
                     }
 
                 }else{
