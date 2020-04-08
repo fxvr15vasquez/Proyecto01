@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/login" />
 
     <EditText
-        android:id="@+id/etxtuser"
+        android:id="@+id/etxtluser"
         android:layout_width="319dp"
         android:layout_height="51dp"
         android:layout_marginTop="48dp"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <EditText
-        android:id="@+id/etxtpass"
+        android:id="@+id/etxtlpass"
         android:layout_width="319dp"
         android:layout_height="51dp"
         android:layout_marginTop="44dp"
@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.554"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etxtuser" />
+        app:layout_constraintTop_toBottomOf="@+id/etxtluser" />
 
     <Button
         android:id="@+id/btningre"
@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.552"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etxtpass" />
+        app:layout_constraintTop_toBottomOf="@+id/etxtlpass" />
 
     <Button
         android:id="@+id/btnregis"
