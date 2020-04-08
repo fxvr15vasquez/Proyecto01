@@ -1,24 +1,34 @@
 package com.example.proyecto01.modelo;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class DAOPersona {
     Persona persona;
+    Context c;
     ArrayList<Persona> listaPers;
     SQLiteDatabase sql;
+    String db = "proyecto.db";
 
-    public boolean insertUser(){
-        if (buscar(persona.getPer_corr_elec()) == 0){
+    public DAOPersona(Context c) {
+        this.c = c;
+        sql = c.openOrCreateDatabase(db,c.MODE_PRIVATE,null);
+        persona = new Persona();
+    }
+
+    public boolean insertPers(Persona pers){
+        if (buscar(pers.getPer_corr_elec()) == 0){
             ContentValues cv = new ContentValues();
-            cv.put("per_id",persona.getPer_id());
-            cv.put("per_nomb",persona.getPer_nombre());
-            cv.put("per_apell",persona.getPer_apellido());
-            cv.put("per_corr_elec",persona.getPer_corr_elec());
-            cv.put("per_cel",persona.getPer_celular());
+            cv.put("per_id",pers.getPer_id());
+            cv.put("per_nomb",pers.getPer_nombre());
+            cv.put("per_apell",pers.getPer_apellido());
+            cv.put("per_corr_elec",pers.getPer_corr_elec());
+            cv.put("per_cel",pers.getPer_celular());
             return (sql.insert("Persona",null,cv)>0);
         }else{
             return false;
@@ -52,5 +62,14 @@ public class DAOPersona {
             }while (cr.moveToNext());
         }
         return lista;
+    }
+
+    public int maxPers(){
+        int max=0;
+        Cursor cr = sql.rawQuery("select MAX(per_id) from Persona", null);
+        if(cr != null && cr.moveToFirst()){
+            max = cr.getInt(0);
+        }
+        return max + 1;
     }
 }

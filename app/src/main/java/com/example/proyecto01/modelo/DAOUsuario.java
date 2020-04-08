@@ -2,6 +2,7 @@ package com.example.proyecto01.modelo;
 
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -10,16 +11,25 @@ import java.util.ArrayList;
 
 public class DAOUsuario {
     Usuario user;
+    Context c;
     ArrayList<Usuario> lista;
     SQLiteDatabase sql;
+    private static final String DATABASE = "proyecto.db";
 
-    public boolean insertUser(){
-        if (buscar(user.getUsu_nomb()) == 0){
+
+    public DAOUsuario(Context context) {
+        this.c=context;
+        user = new Usuario();
+        sql = c.openOrCreateDatabase(DATABASE,c.MODE_PRIVATE,null);
+    }
+
+    public boolean insertUser(Usuario usu){
+        if (buscar(usu.getUsu_nomb()) == 0){
             ContentValues cv = new ContentValues();
-            cv.put("usu_id",user.getUsu_id());
-            cv.put("usu_nomb",user.getUsu_nomb());
-            cv.put("usu_cont",user.getUsu_pass());
-            cv.put("per_id",user.getPer_id());
+            cv.put("usu_id",usu.getUsu_id());
+            cv.put("usu_nomb",usu.getUsu_nomb());
+            cv.put("usu_cont",usu.getUsu_pass());
+            cv.put("per_id",usu.getPer_id());
             return (sql.insert("Usuario",null,cv)>0);
         }else{
             return false;
