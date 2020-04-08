@@ -18,7 +18,7 @@ public class DAOUsuario {
             ContentValues cv = new ContentValues();
             cv.put("usu_id",user.getUsu_id());
             cv.put("usu_nomb",user.getUsu_nomb());
-            cv.put("use_cont",user.getUsu_pass());
+            cv.put("usu_cont",user.getUsu_pass());
             cv.put("per_id",user.getPer_id());
             return (sql.insert("Usuario",null,cv)>0);
         }else{
@@ -52,5 +52,14 @@ public class DAOUsuario {
             }while (cr.moveToNext());
         }
         return lista;
+    }
+
+    public int maxUser(){
+        int max=0;
+        Cursor cr = sql.rawQuery("select MAX(usu_id) from Usuario", null);
+        if(cr != null && cr.moveToFirst()){
+            max = cr.getInt(0);
+        }
+        return max + 1;
     }
 }
