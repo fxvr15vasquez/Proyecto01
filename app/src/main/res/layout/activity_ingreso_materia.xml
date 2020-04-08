@@ -7,17 +7,19 @@
     android:background="?attr/colorControlHighlight"
     tools:context=".IngresoMateria">
 
-        <EditText
-            android:id="@+id/etxtMnomb"
-            android:layout_width="275dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="48dp"
-            android:ems="10"
-            android:hint="Nombre de la Materia"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <EditText
+        android:id="@+id/etxtMnomb"
+        android:layout_width="275dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="22dp"
+        android:ems="10"
+        android:hint="Nombre de la Materia"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/textView9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -27,34 +29,36 @@
         android:layout_marginLeft="68dp"
         android:layout_marginBottom="40dp"
         android:text="Nivel:"
-        app:layout_constraintBottom_toTopOf="@+id/editText2"
-        app:layout_constraintEnd_toStartOf="@+id/spinner"
+        app:layout_constraintBottom_toTopOf="@+id/txtNomProf"
+        app:layout_constraintEnd_toStartOf="@+id/spnNiv"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spnNiv"
         android:layout_width="149dp"
         android:layout_height="26dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="72dp"
         android:layout_marginRight="72dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text" />
+        app:layout_constraintTop_toBottomOf="@+id/edtTxtDes" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="83dp"
         android:layout_height="20dp"
         android:layout_marginTop="120dp"
+        android:layout_marginBottom="18dp"
         android:text="Descripción"
+        app:layout_constraintBottom_toTopOf="@+id/edtTxtDes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.21"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edit_text"
+        android:id="@+id/edtTxtDes"
         android:layout_width="275dp"
         android:layout_height="150dp"
         android:layout_marginTop="60dp"
@@ -65,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etxtMnomb" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/txtNomProf"
         android:layout_width="275dp"
         android:layout_height="50dp"
         android:layout_marginBottom="272dp"
@@ -75,6 +79,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnGuardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="71dp"
+        android:layout_marginLeft="71dp"
+        android:layout_marginTop="61dp"
+        android:text="Guardar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNomProf" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
