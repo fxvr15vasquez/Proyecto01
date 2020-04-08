@@ -8,6 +8,25 @@ public class Materia {
     private String mat_profesor;
     private int est_id;
 
+    public Materia(int mat_id, String mat_nombre, String mat_nivel, String mat_descrip, String mat_profesor, int est_id) {
+        this.mat_id = mat_id;
+        this.mat_nombre = mat_nombre;
+        this.mat_nivel = mat_nivel;
+        this.mat_descrip = mat_descrip;
+        this.mat_profesor = mat_profesor;
+        this.est_id = est_id;
+    }
+
+    public Materia(String mat_nombre, String mat_nivel, String mat_descrip, String mat_profesor) {
+        this.mat_nombre = mat_nombre;
+        this.mat_nivel = mat_nivel;
+        this.mat_descrip = mat_descrip;
+        this.mat_profesor = mat_profesor;
+    }
+    public Materia() {
+
+    }
+
     public int getMat_id() {
         return mat_id;
     }
