@@ -70,7 +70,7 @@ public class personaDB extends SQLiteOpenHelper {
         ArrayList<Persona> lista = new ArrayList<Persona>();
         lista.clear();
         Cursor cr;
-        String SQLC="select ROWID as _id,* from Personas";
+        String SQLC="select ROWID as _id,* from Persona";
         cr= this.getReadableDatabase().rawQuery(SQLC,null);
         if(cr != null && cr.moveToFirst()){
             do{
