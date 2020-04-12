@@ -1,9 +1,16 @@
 package com.example.proyecto01.modeloDB;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.DatabaseErrorHandler;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.proyecto01.modelo.Materia;
 
@@ -15,7 +22,15 @@ import java.io.OutputStream;
 
 public class materiaDB extends SQLiteOpenHelper {
     private static final String DATABASE="proyecto.db";
+
+    public materiaDB(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version, Context miContext) {
+        super(context, name, factory, version);
+        this.miContext = miContext;
+    }
+
     Context miContext;
+
+
 
     public materiaDB(Context context){
         super(context, DATABASE,null,1);
@@ -61,14 +76,12 @@ public class materiaDB extends SQLiteOpenHelper {
 
     public String insertaMateria(Materia materia){
         String SQLi="";
-        SQLi+="insert into materia(2,mat_nombre,mat_nivel,mat_descrip,mat_profesor)";
-        SQLi+=" values (";
-        SQLi+="'"+materia.getMat_id()+"'";
-        SQLi+=",'"+materia.getMat_nombre()+"'";
-        SQLi+=",'"+materia.getMat_nivel()+"'";
-        SQLi+=",'"+materia.getMat_descrip()+"'";
-        SQLi+=",'"+materia.getMat_profesor()+"'";
-        SQLi+=")";
+        SQLi+="insert into materia(mat_id,mat_nombre,mat_nivel,mat_descrip,mat_profesor)";
+        SQLi+=" values (1"+",'"+materia.getMat_nombre()+"'"+",'"+materia.getMat_nivel()+"'"+",'"+materia.getMat_descrip()+"'";
+        SQLi+=",'"+materia.getMat_profesor()+"')";
+        Log.d("materia",String.valueOf(materia.getMat_nombre()));
+        Log.d("nivel",String.valueOf(materia.getMat_nivel()));
+        Log.d("desc",String.valueOf(materia.getMat_descrip()));
         try {
             this.getWritableDatabase().execSQL(SQLi);
         }catch (SQLException ex){
@@ -76,8 +89,13 @@ public class materiaDB extends SQLiteOpenHelper {
             return ex.getMessage();
         }
         return null;
+    }
 
-
+    public Cursor listaMaterias(){
+        Cursor cursor;
+        String SQLC="select ROWID as _id,* from materia";
+        cursor= this.getReadableDatabase().rawQuery(SQLC,null);
+        return cursor;
     }
 
     @Override
