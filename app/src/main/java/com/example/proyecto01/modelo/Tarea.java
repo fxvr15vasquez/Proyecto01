@@ -5,8 +5,11 @@ public class Tarea {
     private String tar_fech_entrega;
     private String tar_nombre;
     private String tar_descrip;
-    private Byte tar_foto;
+    private Byte[] tar_foto;
     private int mat_id;
+
+    public Tarea() {
+    }
 
     public int getTar_id() {
         return tar_id;
@@ -40,16 +43,16 @@ public class Tarea {
         this.tar_descrip = tar_descrip;
     }
 
-    public Byte getTar_foto() {
+    public int getMat_id() {
+        return mat_id;
+    }
+
+    public Byte[] getTar_foto() {
         return tar_foto;
     }
 
-    public void setTar_foto(Byte tar_foto) {
+    public void setTar_foto(Byte[] tar_foto) {
         this.tar_foto = tar_foto;
-    }
-
-    public int getMat_id() {
-        return mat_id;
     }
 
     public void setMat_id(int mat_id) {

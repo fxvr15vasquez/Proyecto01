@@ -1,5 +1,6 @@
 package com.example.proyecto01.modeloDB;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -20,7 +21,7 @@ public class usuarioDB extends SQLiteOpenHelper {
 
     private static final String DATABASE="proyecto.db";
     Context miContext;
-
+    SQLiteDatabase sql;
     ArrayList<Usuario> listaUsu;
 
     public usuarioDB(Context context){
@@ -36,6 +37,7 @@ public class usuarioDB extends SQLiteOpenHelper {
                 e.printStackTrace();
             }
         }
+        sql = context.openOrCreateDatabase(DATABASE, context.MODE_PRIVATE, null);
     }
     //verpru
     private boolean verificaBase(String ruta){
@@ -99,19 +101,15 @@ public class usuarioDB extends SQLiteOpenHelper {
 
     public boolean insertUser(Usuario usu){
         if (buscar(usu.getUsu_nomb()) == 0){
-            String SQLi="";
-            SQLi+="insert into Usuario (usu_id,usu_nomb,usu_cont,per_id)";
-            SQLi+=" values (";
-            SQLi+=" "+usu.getUsu_id()+" ";
-            SQLi+=",'"+usu.getUsu_nomb()+"'";
-            SQLi+=", '"+usu.getUsu_pass()+"'";
-            SQLi+=", "+usu.getPer_id()+" ";
-            SQLi+=")";
+            ContentValues cv = new ContentValues();
+            cv.put("usu_id",usu.getUsu_id());
+            cv.put("usu_nomb",usu.getUsu_nomb());
+            cv.put("usu_cont",usu.getUsu_pass());
+            cv.put("per_id",usu.getPer_id());
             try {
-                this.getWritableDatabase().execSQL(SQLi);
-                return true;
-            }catch (SQLException ex){
-                System.out.println(ex.getMessage());
+                return (sql.insert("Usuario",null,cv)>0);
+            }catch (Exception ex){
+                System.out.println("ERROR usuario: "+ex.getMessage());
                 return false;
             }
         }else{

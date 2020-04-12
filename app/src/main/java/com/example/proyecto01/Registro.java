@@ -27,6 +27,8 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
+
+
         usuDB = new usuarioDB(getApplicationContext());
         perDB = new personaDB(getApplicationContext());
         estDB = new estudianteDB(getApplicationContext());
@@ -47,6 +49,7 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()){
             case R.id.btnRguard:
                 if (pass.getText().toString().equals(pass2.getText().toString())){

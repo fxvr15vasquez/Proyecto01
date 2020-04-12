@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        usuDB = new usuarioDB(getApplicationContext());
+
 
         btningre= (Button) findViewById(R.id.btningre);
         btnregis= (Button) findViewById(R.id.btnregis);
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        usuDB = new usuarioDB(getApplicationContext());
         switch (v.getId()){
             case R.id.btningre:
                 String user = lguser.getText().toString();
