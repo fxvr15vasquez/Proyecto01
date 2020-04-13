@@ -1,5 +1,6 @@
 package com.example.proyecto01;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 
 public class Inicio extends AppCompatActivity {
 
+    public static  int usuID;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -38,6 +40,12 @@ public class Inicio extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle!=null) {
+            usuID = bundle.getInt("id_usu");
+        }
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)

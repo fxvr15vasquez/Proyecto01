@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText lguser, lgpass;
     Button btningre, btnregis;
 
-    usuarioDB usuDB = new usuarioDB(getApplicationContext());
+    usuarioDB usuDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

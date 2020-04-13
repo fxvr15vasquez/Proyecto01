@@ -91,9 +91,9 @@ public class materiaDB extends SQLiteOpenHelper {
         return null;
     }
 
-    public Cursor listaMaterias(){
+    public Cursor listaMaterias(int id){
         Cursor cursor;
-        String SQLC="select ROWID as _id,* from materia";
+        String SQLC="select ROWID as _id,* from materia where est_id = "+id;
         cursor= this.getReadableDatabase().rawQuery(SQLC,null);
         return cursor;
     }
