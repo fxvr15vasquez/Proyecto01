@@ -7,10 +7,11 @@
     android:background="@drawable/note"
     tools:context=".IngresoTarea">
 
+
     <EditText
         android:id="@+id/etxtdescri"
-        android:layout_width="275dp"
-        android:layout_height="150dp"
+        android:layout_width="276dp"
+        android:layout_height="110dp"
         android:layout_marginTop="72dp"
         android:background="@android:color/darker_gray"
         android:gravity="top"
@@ -84,7 +85,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnTingreImg"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -92,5 +93,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etxtdescri" />
+
+    <ImageView
+        android:id="@+id/imvtarea"
+        android:layout_width="282dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTingreImg"
+        app:srcCompat="@drawable/add_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
