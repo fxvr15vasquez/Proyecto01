@@ -29,9 +29,9 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_registro);
 
 
-        usuDB = new usuarioDB(getApplicationContext());
-        perDB = new personaDB(getApplicationContext());
-        estDB = new estudianteDB(getApplicationContext());
+        usuDB = new usuarioDB();
+        perDB = new personaDB();
+        estDB = new estudianteDB();
 
         nomb=(EditText) findViewById(R.id.etxtRnomb);
         apell=(EditText) findViewById(R.id.etxtRapell);
@@ -54,25 +54,25 @@ public class Registro extends AppCompatActivity implements View.OnClickListener{
             case R.id.btnRguard:
                 if (pass.getText().toString().equals(pass2.getText().toString())){
                     Persona pe = new Persona();
-                    pe.setPer_id(perDB.maxPers());
+                    pe.setPer_id(perDB.maxPers(this));
                     pe.setPer_nombre(nomb.getText().toString());
                     pe.setPer_apellido(apell.getText().toString());
                     pe.setPer_corr_elec(correo.getText().toString());
                     pe.setPer_celular(telef.getText().toString());
 
                     Usuario us = new Usuario();
-                    us.setUsu_id(usuDB.maxUser());
+                    us.setUsu_id(usuDB.maxUser(this));
                     us.setUsu_nomb(user.getText().toString());
                     us.setUsu_pass(pass.getText().toString());
                     us.setPer_id(pe.getPer_id());
 
                     Estudiante est = new Estudiante();
-                    est.setEst_id(estDB.maxEst());
+                    est.setEst_id(estDB.maxEst(this));
                     est.setUsu_id(us.getUsu_id());
 
                     if (!us.isNull()){
                         Toast.makeText(this,"Error:  campos bacios",Toast.LENGTH_SHORT).show();
-                    }else if(perDB.insertPers(pe) && usuDB.insertUser(us) && estDB.insertEst(est)){
+                    }else if(perDB.insertPers(pe,this) && usuDB.insertUser(us,this) && estDB.insertEst(est,this)){
                         Toast.makeText(this,"Usuario ingresado",Toast.LENGTH_SHORT).show();
                         Intent inlogin2 = new Intent(Registro.this,MainActivity.class);
                         startActivity(inlogin2);

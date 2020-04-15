@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.proyecto01.modeloDB.Conexion;
 import com.example.proyecto01.modeloDB.usuarioDB;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -17,13 +18,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText lguser, lgpass;
     Button btningre, btnregis;
 
+    Conexion con;
     usuarioDB usuDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        usuDB = new usuarioDB(getApplicationContext());
+        //con = new Conexion(this);
+        usuDB = new usuarioDB();
 
         btningre= (Button) findViewById(R.id.btningre);
         btnregis= (Button) findViewById(R.id.btnregis);
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         String user = lguser.getText().toString();
         String pass = lgpass.getText().toString();
-        int id_usu = usuDB.login(user, pass);
+        int id_usu = usuDB.login(user, pass,this);
         switch (v.getId()){
             case R.id.btningre:
                 if (user.equals("") && pass.equals("")){
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btnregis:
-                Intent inregis = new Intent(MainActivity.this,IngresoTarea.class);
+                Intent inregis = new Intent(MainActivity.this,Registro.class);
                 startActivity(inregis);
                 break;
         }

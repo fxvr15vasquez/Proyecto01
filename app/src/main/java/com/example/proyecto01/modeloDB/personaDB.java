@@ -18,63 +18,21 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-public class personaDB extends SQLiteOpenHelper {
+public class personaDB {
     private static final String DATABASE="proyecto.db";
-    Context miContext;
-    SQLiteDatabase sql;
-
     ArrayList<Persona> listaPers;
 
-    public personaDB(Context context){
-        super(context, DATABASE,null,1);
-        miContext=context;
-        File pathArchivo=miContext.getDatabasePath(DATABASE);
-        //VERIFICAR ARCHIVO
-        if(!verificaBase(pathArchivo.getAbsolutePath())){
-            //COPIAR ARCHIVO
-            try {
-                copiarBase(pathArchivo);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        sql = context.openOrCreateDatabase(DATABASE, context.MODE_PRIVATE, null);
-    }
-    //verpru
-    private boolean verificaBase(String ruta){
-        SQLiteDatabase miBase=null;
-        try {
-
-        }catch (Exception ex) {
-            miBase = SQLiteDatabase.openDatabase(ruta, null, SQLiteDatabase.OPEN_READONLY);
-        }
-        if (miBase!=null){
-            miBase.close();
-        }
-
-        return miBase!=null;
-    }
-
-    private  void copiarBase(File rutaBase) throws IOException {
-        InputStream miInput = miContext.getAssets().open(DATABASE);
-        OutputStream miOutput= new FileOutputStream(rutaBase);
-        byte[] buffer=new byte[1024];
-        int largo;
-        while ((largo=miInput.read(buffer))>0){
-            miOutput.write(buffer,0,largo);
-        }
-        miOutput.flush();
-        miOutput.close();
-        miInput.close();
-    }
 
 
-    public ArrayList<Persona> selecPers(){
+
+
+    public ArrayList<Persona> selecPers(Context miContext){
+        Conexion conn = new Conexion(miContext,DATABASE,null,1);
         ArrayList<Persona> lista = new ArrayList<Persona>();
         lista.clear();
         Cursor cr;
         String SQLC="select ROWID as _id,* from Persona";
-        cr = this.getReadableDatabase().rawQuery(SQLC,null);
+        cr = conn.getReadableDatabase().rawQuery(SQLC,null);
         if(cr != null && cr.moveToFirst()){
             do{
                 Persona pe = new Persona();
@@ -89,9 +47,9 @@ public class personaDB extends SQLiteOpenHelper {
         return lista;
     }
 
-    public int buscar(String pr){
+    public int buscar(String pr,Context miContext){
         int x = 0;
-        listaPers = selecPers();
+        listaPers = selecPers(miContext);
         for (Persona p:listaPers) {
             if (p.getPer_corr_elec().equals(pr)){
                 x++;
@@ -100,39 +58,34 @@ public class personaDB extends SQLiteOpenHelper {
         return x;
     }
 
-    public boolean insertPers(Persona pers){
-        if (buscar(pers.getPer_corr_elec()) == 0){
+    public boolean insertPers(Persona pers,Context miContext){
+        Conexion conn = new Conexion(miContext,DATABASE,null,1);
+        SQLiteDatabase db = conn.getWritableDatabase();
+        if (buscar(pers.getPer_corr_elec(),miContext) == 0){
             ContentValues cv = new ContentValues();
             cv.put("per_id",pers.getPer_id());
             cv.put("per_nomb",pers.getPer_nombre());
             cv.put("per_apell",pers.getPer_apellido());
             cv.put("per_corr_elec",pers.getPer_corr_elec());
             cv.put("per_cel",pers.getPer_celular());
-            return (sql.insert("Persona",null,cv)>0);
+            int ingrs = (int) db.insert("Persona","per_id",cv);
+            db.close();
+            return (ingrs>0);
         }else{
             return false;
         }
     }
 
-    public int maxPers(){
+    public int maxPers(Context miContext){
+        Conexion conn = new Conexion(miContext,DATABASE,null,1);
         int max=0;
         Cursor cr;
         String SQLC="select MAX(per_id) from Persona";
-        cr= this.getReadableDatabase().rawQuery(SQLC,null);
+        cr= conn.getReadableDatabase().rawQuery(SQLC,null);
         if(cr != null && cr.moveToFirst()){
             max = cr.getInt(0);
             System.out.println("codigo maximo de persona: "+max);
         }
         return max + 1;
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 }

@@ -58,7 +58,7 @@ public class GalleryFragment extends Fragment {
     }
     private void muestraMateria(final View root){
         final Cursor cursorp = conecta.listaMaterias(id);
-        String[] desde = new String[]{"mat_id","mat_nombre mat_nivel \n mat_profesor,","mat_descrip"};
+        String[] desde = new String[]{"mat_id","mat_nombre","mat_descrip"};
         int[] hasta=new int[]{R.id.txtLMid,R.id.txtLMnomb,R.id.txtLMdescrip};
         cursorAdapter = new SimpleCursorAdapter(getContext(),
                 R.layout.listadematerias ,cursorp,desde,hasta,0);

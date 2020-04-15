@@ -17,63 +17,21 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-public class usuarioDB extends SQLiteOpenHelper {
+public class usuarioDB{
 
     private static final String DATABASE="proyecto.db";
-    Context miContext;
-    SQLiteDatabase sql;
     ArrayList<Usuario> listaUsu;
 
-    public usuarioDB(Context context){
-        super(context, DATABASE,null,1);
-        miContext=context;
-        File pathArchivo=miContext.getDatabasePath(DATABASE);
-        //VERIFICAR ARCHIVO
-        if(!verificaBase(pathArchivo.getAbsolutePath())){
-            //COPIAR ARCHIVO
-            try {
-                copiarBase(pathArchivo);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        sql = context.openOrCreateDatabase(DATABASE, context.MODE_PRIVATE, null);
-    }
-    //verpru
-    private boolean verificaBase(String ruta){
-        SQLiteDatabase miBase=null;
-        try {
-
-        }catch (Exception ex) {
-            miBase = SQLiteDatabase.openDatabase(ruta, null, SQLiteDatabase.OPEN_READONLY);
-        }
-        if (miBase!=null){
-            miBase.close();
-        }
-
-        return miBase!=null;
-    }
-
-    private  void copiarBase(File rutaBase) throws IOException {
-        InputStream miInput = miContext.getAssets().open(DATABASE);
-        OutputStream miOutput= new FileOutputStream(rutaBase);
-        byte[] buffer=new byte[1024];
-        int largo;
-        while ((largo=miInput.read(buffer))>0){
-            miOutput.write(buffer,0,largo);
-        }
-        miOutput.flush();
-        miOutput.close();
-        miInput.close();
-    }
 
 
-    public ArrayList<Usuario> selecUsers(){
+    public ArrayList<Usuario> selecUsers(Context miContext){
+        Conexion conn = new Conexion(miContext,DATABASE,null,1);
+        SQLiteDatabase db = conn.getReadableDatabase();
         ArrayList<Usuario> lista = new ArrayList<Usuario>();
         lista.clear();
         Cursor cr;
         String SQLC="select ROWID as _id,* from Usuario";
-        cr= this.getReadableDatabase().rawQuery(SQLC,null);
+        cr= db.rawQuery(SQLC,null);
         if(cr != null && cr.moveToFirst()){
             do{
                 Usuario us = new Usuario();
@@ -84,13 +42,13 @@ public class usuarioDB extends SQLiteOpenHelper {
                 lista.add(us);
             }while (cr.moveToNext());
         }
-
+    db.close();
         return lista;
     }
 
-    public int buscar(String pr){
+    public int buscar(String pr,Context miContext){
         int x = 0;
-        listaUsu = selecUsers();
+        listaUsu = selecUsers(miContext);
         for (Usuario u:listaUsu) {
             if (u.getUsu_nomb().equals(pr)){
                 x++;
@@ -99,58 +57,61 @@ public class usuarioDB extends SQLiteOpenHelper {
         return x;
     }
 
-    public boolean insertUser(Usuario usu){
-        if (buscar(usu.getUsu_nomb()) == 0){
+    public boolean insertUser(Usuario usu,Context miContext){
+        Conexion conn = new Conexion(miContext,DATABASE,null,1);
+        SQLiteDatabase db = conn.getWritableDatabase();
+        if (buscar(usu.getUsu_nomb(),miContext) == 0){
             ContentValues cv = new ContentValues();
             cv.put("usu_id",usu.getUsu_id());
             cv.put("usu_nomb",usu.getUsu_nomb());
             cv.put("usu_cont",usu.getUsu_pass());
             cv.put("per_id",usu.getPer_id());
             try {
-                return (sql.insert("Usuario",null,cv)>0);
+                int regis = (int) db.insert("Usuario",null,cv);
+                db.close();
+                return (regis>0);
             }catch (Exception ex){
                 System.out.println("ERROR usuario: "+ex.getMessage());
+                db.close();
                 return false;
             }
+
         }else{
+            db.close();
             return false;
         }
+
     }
 
-    public int maxUser(){
+    public int maxUser(Context miContext){
+        Conexion conn = new Conexion(miContext,DATABASE,null,1);
+        SQLiteDatabase db = conn.getReadableDatabase();
         int max=0;
         Cursor cr;
         String SQLC="select MAX(usu_id) from Usuario";
-        cr= this.getReadableDatabase().rawQuery(SQLC,null);
+        cr= db.rawQuery(SQLC,null);
         if(cr != null && cr.moveToFirst()){
             max = cr.getInt(0);
         }
+        db.close();
         return max + 1;
     }
 
     //login
-    public int login(String u, String p){
+    public int login(String u, String p, Context miContext){
+        Conexion conn = new Conexion(miContext,DATABASE,null,1);
+        SQLiteDatabase db = conn.getReadableDatabase();
         int acep=0;
         Cursor cr;
         String SQLC="select usu_id from Usuario where usu_nomb = '" + u + "' AND usu_cont = '"+ p +"'" ;
 
-        cr= this.getReadableDatabase().rawQuery(SQLC,null);
+        cr= db.rawQuery(SQLC,null);
         if(cr != null && cr.moveToFirst()){
             acep = cr.getInt(0);
         }else{
             acep = 0;
         }
+        db.close();
         return acep;
-    }
-
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
 }
